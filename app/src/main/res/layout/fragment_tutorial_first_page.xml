@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/flight_toolbar_blue"
+    tools:context=".tutorial_page.TutorialFirstPage">
+
+    <TextView
+        android:id="@+id/tutorialPageFirstTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="@color/white"
+        android:alpha="0.5"
+        android:textSize="17sp"
+        android:text="Yolculuk seviyorsan hemen katıl!" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        android:layout_above="@+id/tutorialPageFirstTextView"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_url="https://assets7.lottiefiles.com/packages/lf20_b9be5vv3.json"/>
+
+    <com.google.android.material.button.MaterialButton
+
+        android:id="@+id/continueButtonID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/flight_appbar_blue"
+        android:textAllCaps="true"
+        android:gravity="center"
+        app:icon="@drawable/ic_arrow_white"
+        app:iconGravity="end"
+        android:insetLeft="10dp"
+        android:text="DEVAM ET" />
+
+    <Button
+        android:id="@+id/skipButtonID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:text="GEÇ"
+        android:alpha="0.5"
+        android:textColor="@color/white"
+        style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+</RelativeLayout>

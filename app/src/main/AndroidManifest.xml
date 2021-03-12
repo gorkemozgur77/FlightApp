@@ -11,8 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FlightApp">
-        <activity android:name=".tutorial_page.TutorialPage"></activity>
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".module.Homepage"></activity>
+        <activity android:name=".module.tutorial_page.TutorialPage" />
+        <activity android:name=".module.authentication.LoginActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

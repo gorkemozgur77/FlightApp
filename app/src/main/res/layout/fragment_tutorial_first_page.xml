@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/flight_toolbar_blue"
-    tools:context=".tutorial_page.TutorialFirstPage">
+    tools:context=".module.tutorial_page.TutorialFirstPage">
 
     <TextView
         android:id="@+id/tutorialPageFirstTextView"

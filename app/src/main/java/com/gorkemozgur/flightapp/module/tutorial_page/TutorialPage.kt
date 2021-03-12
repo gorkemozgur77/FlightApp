@@ -1,4 +1,4 @@
-package com.gorkemozgur.flightapp.tutorial_page
+package com.gorkemozgur.flightapp.module.tutorial_page
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

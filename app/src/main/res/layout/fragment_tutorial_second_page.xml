@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/flight_toolbar_blue"
-    tools:context=".tutorial_page.TutorialSecondPage">
+    tools:context=".module.tutorial_page.TutorialSecondPage">
 
     <TextView
         android:id="@+id/tutorialPageSecondTextView"

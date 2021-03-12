@@ -3,9 +3,12 @@ package com.gorkemozgur.flightapp
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.gorkemozgur.flightapp.tutorial_page.TutorialPage
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.gorkemozgur.flightapp.module.Homepage
+import com.gorkemozgur.flightapp.module.authentication.LoginActivity
+import com.gorkemozgur.flightapp.module.tutorial_page.TutorialPage
 import com.gorkemozgur.flightapp.util.Constants
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -32,7 +35,6 @@ class MainActivity : AppCompatActivity() {
                     sleep(3000)
                     checkTutorial()
                     finish()
-                    println("SplashScreen gecti.")
                 }catch (e : Exception){
                     e.printStackTrace()
                 }
@@ -43,14 +45,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkTutorial() {
         when(prefs.getBoolean(TUTORIAL_PAGE, false)){
-            true -> startLoginActivity()
+            true -> startLoginOrHomepage()
             false -> startTutorialPageActivity()
         }
     }
 
-    private fun startLoginActivity(){
-        startActivity(Intent(baseContext,LoginActivity::class.java))
+    private fun startLoginOrHomepage(){
+        val auth = FirebaseAuth.getInstance()
+
+        if (auth.currentUser != null)
+            startActivity(Intent(baseContext, Homepage::class.java))
+
+        else
+            startActivity(Intent(baseContext, LoginActivity::class.java))
     }
+
     private fun startTutorialPageActivity(){
         startActivity(Intent(baseContext,TutorialPage::class.java))
         val editor = prefs.edit()

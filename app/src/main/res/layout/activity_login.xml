@@ -5,20 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".LoginActivity">
+    tools:context=".module.authentication.LoginActivity">
 
-    <ImageView
-        android:id="@+id/collapseImage"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:elevation="0dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/airbus"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+    <fragment
+        android:id="@+id/fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/authenticaton_pages_navigation"
+        tools:layout_editor_absoluteX="96dp"
+        tools:layout_editor_absoluteY="139dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

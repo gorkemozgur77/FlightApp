@@ -1,38 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".module.Homepage">
+    tools:context=".module.home_page.view.Homepage">
 
-    <TextView
-        android:id="@+id/textView2"
+    <FrameLayout
+        android:id="@+id/frameLayId"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+      <com.google.android.material.bottomappbar.BottomAppBar
+          app:hideOnScroll="true"
+          app:layout_scrollFlags="scroll|enterAlways"
+
+          android:id="@+id/bottomAppBar"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:fabCradleMargin="4dp"
+          app:fabCradleRoundedCornerRadius="15dp"
+          android:background="@android:color/white"
+          android:layout_gravity="bottom">
+
+          <com.google.android.material.bottomnavigation.BottomNavigationView
+              android:id="@+id/home_page_bottomNavigationViewId"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginEnd="16dp"
+              android:background="@android:color/transparent"
+              app:menu="@menu/home_page_bottomnavigation_items"/>
+      </com.google.android.material.bottomappbar.BottomAppBar>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="151dp"
-        android:layout_marginTop="108dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:contentDescription="@string/app_name"
+        android:backgroundTintMode="screen"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/ic_baseline_airplanemode_active_24"
+        app:borderWidth="0dp"
+        app:tint="@color/inactive_color"
+        app:layout_anchor="@id/bottomAppBar" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="65dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="75dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

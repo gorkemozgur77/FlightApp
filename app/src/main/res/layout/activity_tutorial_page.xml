@@ -21,4 +21,5 @@
         app:tabGravity="center"
         android:layout_marginBottom="?attr/actionBarSize"
         app:tabIndicatorHeight="0dp"/>
+
 </RelativeLayout>

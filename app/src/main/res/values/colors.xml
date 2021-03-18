@@ -9,5 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="flight_toolbar_blue">#1a7fe1</color>
     <color name="flight_appbar_blue">#1f63c6</color>
+    <color name="dark_blue">#2b3c6a</color>
     <color name="flight_gray">#f7f7ff</color>
+    <color name="inactive_color">#666666</color>
 </resources>

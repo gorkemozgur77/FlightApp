@@ -4,13 +4,18 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View
+import android.widget.ProgressBar
+import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.firebase.auth.FirebaseAuth
-import com.gorkemozgur.flightapp.module.Homepage
-import com.gorkemozgur.flightapp.module.authentication.LoginActivity
+import com.gorkemozgur.flightapp.module.authentication.view.LoginActivity
+import com.gorkemozgur.flightapp.module.home_page.view.Homepage
 import com.gorkemozgur.flightapp.module.tutorial_page.TutorialPage
 import com.gorkemozgur.flightapp.util.Constants
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,9 +29,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        prefs = applicationContext.getSharedPreferences(Constants.TutorialPagePreferenceFile, Context.MODE_PRIVATE)
+        prefs = applicationContext.getSharedPreferences(
+            Constants.TutorialPagePreferenceFile,
+            Context.MODE_PRIVATE
+        )
 
-        versionTextView.text = applicationContext.packageManager.getPackageInfo(applicationContext.packageName,0).versionName
+        versionTextView.text = BuildConfig.VERSION_NAME
         variantTextView.text = BuildConfig.BUILD_TYPE
 
         object : Thread() {
@@ -35,7 +43,7 @@ class MainActivity : AppCompatActivity() {
                     sleep(3000)
                     checkTutorial()
                     finish()
-                }catch (e : Exception){
+                }catch (e: Exception){
                     e.printStackTrace()
                 }
             }
@@ -61,7 +69,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startTutorialPageActivity(){
-        startActivity(Intent(baseContext,TutorialPage::class.java))
+        startActivity(Intent(baseContext, TutorialPage::class.java))
         val editor = prefs.edit()
         editor.putBoolean(TUTORIAL_PAGE, true)
         editor.apply()

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".module.authentication.LoginActivity">
+    tools:context=".module.authentication.view.LoginActivity">
 
     <fragment
         android:id="@+id/fragment"
@@ -16,5 +16,6 @@
         app:navGraph="@navigation/authenticaton_pages_navigation"
         tools:layout_editor_absoluteX="96dp"
         tools:layout_editor_absoluteY="139dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

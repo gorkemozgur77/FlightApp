@@ -1,4 +1,4 @@
-package com.gorkemozgur.flightapp.adapter
+package com.gorkemozgur.flightapp.module.tutorial_page.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

@@ -1,11 +1,11 @@
-package com.gorkemozgur.flightapp
+package com.gorkemozgur.flightapp.util
 
 import android.text.TextUtils
 import android.util.Patterns
 import android.widget.TextView
 import com.google.android.material.textfield.TextInputLayout
 
-class Validator {
+class InputValidator {
 
     private val canNotEmpty = "Boş bırakılamaz."
     private val invalidEmail = "Geçersiz email"
@@ -26,7 +26,7 @@ class Validator {
     }
 
     private fun isEmailValid(view: TextView): Boolean {
-        return Patterns.EMAIL_ADDRESS.matcher( view.text.toString() ).matches()
+        return Patterns.EMAIL_ADDRESS.matcher(view.text.toString()).matches()
     }
 
     private fun isPasswordValid(view: TextView): Boolean{

@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".module.authentication.RegisterFragment">
+        tools:context=".module.authentication.view.RegisterFragment">
 
         <ImageView
             android:id="@+id/imageView"

@@ -1,4 +1,4 @@
-package com.gorkemozgur.flightapp.module.authentication
+package com.gorkemozgur.flightapp.module.authentication.view
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity

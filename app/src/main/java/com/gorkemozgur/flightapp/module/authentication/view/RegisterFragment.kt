@@ -2,30 +2,25 @@ package com.gorkemozgur.flightapp.module.authentication.view
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthException
+import com.gorkemozgur.flightapp.BaseFragment
 import com.gorkemozgur.flightapp.R
+import com.gorkemozgur.flightapp.model.Status
 import com.gorkemozgur.flightapp.module.authentication.viewmodel.RegisterViewModel
-import com.gorkemozgur.flightapp.util.InputValidator
 import com.gorkemozgur.flightapp.module.home_page.view.Homepage
+import com.gorkemozgur.flightapp.util.FirebaseErrorCodes.EMAIL_EXIST_CODE
+import com.gorkemozgur.flightapp.util.InputValidator
+import com.gorkemozgur.flightapp.util.setErrorDisableListener
 import kotlinx.android.synthetic.main.fragment_login.airbus
 import kotlinx.android.synthetic.main.fragment_register.*
 
-class RegisterFragment : Fragment() {
-
-    companion object {
-        const val EMAIL_EXIST_CODE = "ERROR_EMAIL_ALREADY_IN_USE"
-        const val EMAIL_EXIST_MESSAGE = "Bu adres başkası tarafından kullanılıyor."
-
-    }
+class RegisterFragment : BaseFragment() {
 
     lateinit var mAuth: FirebaseAuth
     lateinit var viewModel: RegisterViewModel
@@ -42,47 +37,16 @@ class RegisterFragment : Fragment() {
         mAuth = FirebaseAuth.getInstance()
 
         airbus.startAnimation(
-            AnimationUtils.loadAnimation(
-                context,
-                R.anim.up_down
-            )
+                AnimationUtils.loadAnimation(
+                        context,
+                        R.anim.up_down
+                )
         )
 
-        emailRegisterId.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus)
-                emailRegisterLayoutId.isErrorEnabled = false
-        }
-
-        emailRegisterId.addTextChangedListener {
-            emailRegisterLayoutId.isErrorEnabled = false
-        }
-
-        passwordRegisterId.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus)
-                passwordRegisterLayoutId.isErrorEnabled = false
-        }
-
-        passwordRegisterId.addTextChangedListener {
-            passwordRegisterLayoutId.isErrorEnabled = false
-        }
-
-        nameRegisterId.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus)
-                nameRegisterLayoutId.isErrorEnabled = false
-        }
-
-        nameRegisterId.addTextChangedListener {
-            nameRegisterLayoutId.isErrorEnabled = false
-        }
-
-        surnameRegisterId.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus)
-                surnameRegisterLayoutId.isErrorEnabled = false
-        }
-
-        surnameRegisterId.addTextChangedListener {
-            surnameRegisterLayoutId.isErrorEnabled = false
-        }
+        emailRegisterId.setErrorDisableListener(emailRegisterLayoutId)
+        passwordRegisterId.setErrorDisableListener(passwordRegisterLayoutId)
+        nameRegisterId.setErrorDisableListener(nameRegisterLayoutId)
+        surnameRegisterId.setErrorDisableListener(surnameRegisterLayoutId)
 
         signupCloseActionButton.setOnClickListener {
             val action = RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
@@ -96,45 +60,51 @@ class RegisterFragment : Fragment() {
         observeLivedata()
     }
 
-    private fun register(){
+    private fun register() {
         validateLayouts()
         if (nameRegisterLayoutId.isErrorEnabled || passwordRegisterLayoutId.isErrorEnabled || emailRegisterLayoutId.isErrorEnabled || passwordRegisterLayoutId.isErrorEnabled)
             return
         sendRegisterRequest()
     }
 
-    private fun sendRegisterRequest(){
+    private fun sendRegisterRequest() {
+        (activity as LoginActivity).showProgressBar()
         viewModel.sendLoginRequest(
-            nameRegisterId.text.toString(),
-            surnameRegisterId.text.toString(),
-            emailRegisterId.text.toString(),
-            passwordRegisterId.text.toString()
+                nameRegisterId.text.toString(),
+                surnameRegisterId.text.toString(),
+                emailRegisterId.text.toString(),
+                passwordRegisterId.text.toString()
         )
     }
 
-    private fun validateLayouts(){
+    private fun validateLayouts() {
         viewModel.validateLayouts(nameRegisterLayoutId, nameRegisterId)
         viewModel.validateLayouts(surnameRegisterLayoutId, surnameRegisterId)
         viewModel.validateEmailRegex(emailRegisterLayoutId, emailRegisterId)
         viewModel.validatePassword(passwordRegisterLayoutId, passwordRegisterId)
     }
 
-    private fun observeLivedata(){
-        viewModel.isRegisterSuccessful.observe(
-            viewLifecycleOwner, {
-                if (it){
+    private fun observeLivedata() {
+        viewModel.responseValue.observe(
+                viewLifecycleOwner, {
+
+            when (it.status) {
+                Status.LOADING -> showProgressBar()
+
+                Status.SUCCESS -> {
+                    hideProgressBar()
                     startActivity(Intent(context, Homepage::class.java))
                     this.activity?.finish()
                 }
-            }
-        )
 
-        viewModel.errorException.observe(
-            viewLifecycleOwner, {
-                println((FirebaseAuthException::class.java.cast(it)!!.errorCode))
-                if (FirebaseAuthException::class.java.cast(it)!!.errorCode == EMAIL_EXIST_CODE)
-                    InputValidator().errorAction(emailRegisterLayoutId, EMAIL_EXIST_MESSAGE)
+                Status.ERROR -> {
+                    hideProgressBar()
+                    when (it.message) {
+                        EMAIL_EXIST_CODE -> InputValidator().errorAction(emailRegisterLayoutId, getString(R.string.email_exist_message))
+                    }
+                }
             }
+        }
         )
     }
 }

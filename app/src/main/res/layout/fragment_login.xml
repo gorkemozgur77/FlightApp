@@ -57,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:hint="Email">
+                android:hint="@string/email">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/emailLoginId"
@@ -74,7 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:endIconMode="password_toggle"
-                android:hint="Şifre">
+                android:hint="@string/password">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/passwordLoginId"
@@ -91,7 +91,7 @@
                 android:layout_marginTop="25dp"
                 android:layout_marginBottom="20dp"
                 android:backgroundTint="@color/flight_toolbar_blue"
-                android:text="Giriş Yap"
+                android:text="@string/sign_in"
                 android:textStyle="bold"
                 android:textAllCaps="false"
                 app:cornerRadius="7dp" />
@@ -114,7 +114,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="45dp"
                     android:layout_marginRight="45dp"
-                    android:text="ya da"
+                    android:text="@string/or"
                     android:layout_gravity="center"/>
 
                 <View
@@ -130,7 +130,7 @@
                 android:id="@+id/registerPageButton"
                 android:layout_width="match_parent"
                 android:layout_height="61dp"
-                android:text="Kayıt Ol"
+                android:text="@string/register"
                 android:textStyle="bold"
                 android:textAllCaps="false"
                 android:layout_marginTop="20dp"

@@ -1,5 +1,20 @@
 <resources>
     <string name="app_name">FlightApp</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email">Email</string>
+    <string name="password">Şifre</string>
+    <string name="sign_in">Giriş Yap</string>
+    <string name="or">ya da</string>
+    <string name="register">Kayıt Ol</string>
+    <string name="name">İsim</string>
+    <string name="surname">Soyisim</string>
+    <string name="update">Güncelle</string>
+    <string name="sign_out">Çıkış Yap</string>
+    <string name="can_not_empty">Boş bırakılamaz.</string>
+    <string name="invalid_email">Geçersiz Email.</string>
+    <string name="invalid_password">Şifre 6 karakterden kısa olamaz.</string>
+    <string name="email_exist_message">Bu adres başkası tarafından kullanılıyor.</string>
+    <string name="require_login_message">Değişiklik için tekrar giriş yapılması gerekiyor.</string>
+    <string name="wrong_password">Hatalı şifre.</string>
+    <string name="user_not_found">Kullanıcı bulunamadı.</string>
 </resources>

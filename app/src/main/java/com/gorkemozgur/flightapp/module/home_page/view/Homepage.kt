@@ -1,15 +1,14 @@
 package com.gorkemozgur.flightapp.module.home_page.view
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import com.google.firebase.auth.FirebaseAuth
+import com.gorkemozgur.flightapp.BaseActivity
 import com.gorkemozgur.flightapp.R
 import kotlinx.android.synthetic.main.activity_homepage.*
 
-class Homepage : AppCompatActivity() {
+class Homepage : BaseActivity() {
 
     lateinit var mAuth: FirebaseAuth
 
@@ -46,12 +45,5 @@ class Homepage : AppCompatActivity() {
             replace(R.id.frameLayId, fragment)
             commit()
         }
-    }
-
-    fun showOrHide(checker: Boolean) {
-        if (checker)
-            fab.show()
-        else
-            fab.hide()
     }
 }

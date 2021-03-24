@@ -21,7 +21,6 @@ class ApiClient {
 
             authApiService = retrofit.create(ApiService::class.java)
         }
-
         return authApiService
     }
 

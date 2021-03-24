@@ -6,29 +6,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthException
+import com.gorkemozgur.flightapp.BaseFragment
 import com.gorkemozgur.flightapp.R
+import com.gorkemozgur.flightapp.model.Status
 import com.gorkemozgur.flightapp.module.authentication.viewmodel.LoginViewModel
 import com.gorkemozgur.flightapp.module.home_page.view.Homepage
+import com.gorkemozgur.flightapp.util.FirebaseErrorCodes.USER_NOT_FOUND_CODE
+import com.gorkemozgur.flightapp.util.FirebaseErrorCodes.WRONG_PASSWORD_CODE
+import com.gorkemozgur.flightapp.util.setErrorDisableListener
+import com.gorkemozgur.flightapp.util.toast
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
-class LoginFragment : Fragment() {
+class LoginFragment : BaseFragment() {
 
     lateinit var mAuth: FirebaseAuth
     private lateinit var viewModel: LoginViewModel
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
@@ -40,15 +41,12 @@ class LoginFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
 
         airbus.startAnimation(
-            AnimationUtils.loadAnimation(
-                context,
-                R.anim.up_down
-            )
+                AnimationUtils.loadAnimation(
+                        context,
+                        R.anim.up_down
+                )
         )
 
-        val progressBar = ProgressBar(context)
-        progressBar.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        progressBar.visibility = View.VISIBLE
         registerPageButton.setOnClickListener {
             val action = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
             Navigation.findNavController(it).navigate(action)
@@ -56,59 +54,48 @@ class LoginFragment : Fragment() {
 
         loginButton.setOnClickListener {
             signIn()
-            progressBar.visibility = View.VISIBLE;
         }
 
-        emailLoginId.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus)
-                emailLoginLayoutId.isErrorEnabled = false
-        }
+        emailLoginId.setErrorDisableListener(emailLoginLayoutId)
+        passwordLoginId.setErrorDisableListener(passwordLoginLayoutId)
 
-        passwordLoginId.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus)
-                passwordLoginLayoutId.isErrorEnabled = false
-        }
-
-        emailLoginId.addTextChangedListener {
-            emailLoginLayoutId.isErrorEnabled = false
-        }
-
-        passwordLoginId.addTextChangedListener {
-            passwordLoginLayoutId.isErrorEnabled = false
-        }
-
-        observeLivedata()
+        observeLiveData()
     }
 
     private fun signIn() {
         validateLayouts()
         if (emailLoginLayoutId.isErrorEnabled || passwordLoginLayoutId.isErrorEnabled)
             return
-        viewModel.sendLoginRequest(
-            emailLoginId.text.toString(),
-            passwordLoginId.text.toString()
-        )
+        viewModel.sendLoginRequest(emailLoginId.text.toString(), passwordLoginId.text.toString())
+        (activity as LoginActivity).showProgressBar()
     }
 
-    private fun validateLayouts(){
+    private fun validateLayouts() {
         viewModel.validateLayouts(emailLoginLayoutId, emailLoginId)
         viewModel.validateLayouts(passwordLoginLayoutId, passwordLoginId)
     }
 
-    private fun observeLivedata(){
-        viewModel.isLoginSuccessful.observe(
-            viewLifecycleOwner, {
-                if (it) {
+    private fun observeLiveData() {
+        viewModel.responseValue.observe(
+                viewLifecycleOwner, {
+
+            when (it.status) {
+                Status.LOADING -> {
+                    showProgressBar()
+                }
+                Status.SUCCESS -> {
                     startActivity(Intent(context, Homepage::class.java))
                     this.activity?.finish()
                 }
+                Status.ERROR -> {
+                    hideProgressBar()
+                    when (it.message) {
+                        WRONG_PASSWORD_CODE -> toast(getString(R.string.wrong_password))
+                        USER_NOT_FOUND_CODE -> toast(getString(R.string.user_not_found))
+                    }
+                }
             }
-        )
-
-        viewModel.errorException.observe(
-            viewLifecycleOwner, {
-                println((FirebaseAuthException::class.java.cast(it)!!.errorCode))
-            }
+        }
         )
     }
 }

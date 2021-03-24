@@ -5,10 +5,10 @@ import com.gorkemozgur.flightapp.model.Pagination
 
 data class AirportResponseModel(
 
-    @SerializedName("pagination")
-    val pagination: Pagination,
+        @SerializedName("pagination")
+        val pagination: Pagination,
 
-    @SerializedName("data")
-    val airport: List<Airport>
+        @SerializedName("data")
+        val airport: List<Airport>
 
 )

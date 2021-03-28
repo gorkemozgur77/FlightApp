@@ -1,6 +1,7 @@
 package com.gorkemozgur.flightapp.model.flight
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Arrival(
         @SerializedName("airport")
@@ -35,4 +36,4 @@ data class Arrival(
 
         @SerializedName("actual_runway")
         val actualRunway: String
-)
+): Serializable

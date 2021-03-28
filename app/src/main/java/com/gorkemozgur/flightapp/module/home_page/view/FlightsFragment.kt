@@ -26,7 +26,7 @@ import retrofit2.Response
 
 class FlightsFragment : BaseFragment() {
 
-    private val recyclerAdapter = FlightsRecyclerAdapter()
+    private lateinit var recyclerAdapter: FlightsRecyclerAdapter
     private lateinit var viewModel: FlightsViewModel
 
 
@@ -38,7 +38,7 @@ class FlightsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        recyclerAdapter = context?.let { FlightsRecyclerAdapter(it) }!!
         viewModel = ViewModelProviders.of(this).get(FlightsViewModel::class.java)
 
         flightListRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
@@ -75,7 +75,7 @@ class FlightsFragment : BaseFragment() {
                     }
                     Status.ERROR -> {
                         hideProgressBar()
-                        toast("Sonra tekrar deneyin")
+                        it.message?.let { it1 -> toast(it1) }
                     }
                 }
             }

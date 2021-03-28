@@ -12,8 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FlightApp"
         android:usesCleartextTraffic="true">
-        <activity android:name=".BaseActivity"  />
-        <activity android:name=".module.home_page.view.Homepage" android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".module.home_page.view.DetailActivity"></activity>
+        <activity android:name=".BaseActivity" />
+        <activity
+            android:name=".module.home_page.view.Homepage"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".module.tutorial_page.TutorialPage" />
         <activity android:name=".module.authentication.view.LoginActivity" />
         <activity android:name=".MainActivity">

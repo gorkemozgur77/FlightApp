@@ -1,6 +1,7 @@
 package com.gorkemozgur.flightapp.model.flight
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Airline(
 
@@ -12,4 +13,4 @@ data class Airline(
 
         @SerializedName("icao")
         val icao: String
-)
+): Serializable

@@ -12,4 +12,6 @@
     <color name="dark_blue">#2b3c6a</color>
     <color name="flight_gray">#f7f7ff</color>
     <color name="inactive_color">#666666</color>
+    <color name="LighGray">#DCDCDC</color>
+
 </resources>

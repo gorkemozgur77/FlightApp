@@ -49,8 +49,7 @@ class RegisterFragment : BaseFragment() {
         surnameRegisterId.setErrorDisableListener(surnameRegisterLayoutId)
 
         signupCloseActionButton.setOnClickListener {
-            val action = RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
-            Navigation.findNavController(it).navigate(action)
+            (activity as LoginActivity).onBackPressed()
         }
 
         registerButton.setOnClickListener {

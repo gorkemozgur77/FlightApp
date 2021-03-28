@@ -27,8 +27,8 @@ class ProfileFragment : BaseFragment() {
     lateinit var viewModel: ProfileViewModel
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false)
@@ -41,10 +41,10 @@ class ProfileFragment : BaseFragment() {
         viewModel.getUser()
 
         airbus.startAnimation(
-                AnimationUtils.loadAnimation(
-                        context,
-                        R.anim.up_down
-                )
+            AnimationUtils.loadAnimation(
+                context,
+                R.anim.up_down
+            )
         )
 
         profileNestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
@@ -80,7 +80,12 @@ class ProfileFragment : BaseFragment() {
         validateLayouts()
         if (nameProfileLayoutId.isErrorEnabled || surnameProfileLayoutId.isErrorEnabled || emailProfileLayoutId.isErrorEnabled || passwordProfileLayoutId.isErrorEnabled)
             return
-        viewModel.updateUser(nameProfileId.text.toString(), surnameProfileId.text.toString(), emailProfileId.text.toString(), passwordProfileId.text.toString())
+        viewModel.updateUser(
+            nameProfileId.text.toString(),
+            surnameProfileId.text.toString(),
+            emailProfileId.text.toString(),
+            passwordProfileId.text.toString()
+        )
         uptadeButton.isEnabled = false
         showProgressBar()
         Timer().schedule(2500) {
@@ -106,21 +111,23 @@ class ProfileFragment : BaseFragment() {
 
     private fun observeLiveData() {
         viewModel.user.observe(
-                viewLifecycleOwner, {
-            val list = it.displayName!!.split(" ")
-            appbarUsernameTextfield.text = it.displayName
-            nameProfileId.setText(list[0])
-            surnameProfileId.setText(list[1])
-            emailProfileId.setText(it.email)
-            uptadeButton.isEnabled = true
-            hideProgressBar()
-        }
+            viewLifecycleOwner, {
+                val list = it.displayName!!.split(" ")
+                appbarUsernameTextfield.text = it.displayName
+                nameProfileId.setText(list[0])
+                surnameProfileId.setText(list[1])
+                emailProfileId.setText(it.email)
+                uptadeButton.isEnabled = true
+                hideProgressBar()
+            }
         )
         viewModel.exception.observe(
-                viewLifecycleOwner, {
-            if (FirebaseAuthException::class.java.cast(it)?.errorCode == EMAIL_EXIST_CODE)
-                toast(getString(R.string.email_exist_message))
-        }
+            viewLifecycleOwner, {
+                if (FirebaseAuthException::class.java.cast(it)?.errorCode == EMAIL_EXIST_CODE)
+                    toast(getString(R.string.email_exist_message))
+                else
+                    toast(it.message.toString())
+            }
         )
     }
 }

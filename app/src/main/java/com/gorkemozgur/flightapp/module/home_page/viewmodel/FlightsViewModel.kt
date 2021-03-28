@@ -13,7 +13,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FlightsViewModel(application: Application): BaseViewmodel(application) {
+class FlightsViewModel(application: Application) : BaseViewmodel(application) {
 
     private var offset = 0
     private var limit = 15
@@ -22,29 +22,30 @@ class FlightsViewModel(application: Application): BaseViewmodel(application) {
     val flightData: LiveData<Resource<List<Flight>>>
         get() = _flightData
 
-    fun sendRequest(){
+    fun sendRequest() {
         _flightData.postValue(Resource.loading())
-        ApiClient().getAuthApiService().getFlights(Constants.API_ACCESS_KEY,limit, offset).enqueue(object :
-            Callback<FlightResponseModel> {
-            override fun onResponse(
-                call: Call<FlightResponseModel>,
-                response: Response<FlightResponseModel>
-            ) {
-                println(response.body().toString())
-                if (response.isSuccessful){
-                    _flightData.postValue(Resource.success(response.body()?.flight))
-                    offset += limit
+        ApiClient().getAuthApiService().getFlights(Constants.API_ACCESS_KEY, limit, offset)
+            .enqueue(object :
+                Callback<FlightResponseModel> {
+                override fun onResponse(
+                    call: Call<FlightResponseModel>,
+                    response: Response<FlightResponseModel>
+                ) {
+                    println(response.body().toString())
+                    if (response.isSuccessful) {
+                        _flightData.postValue(Resource.success(response.body()?.flight))
+                        offset += limit
+                    } else
+                        _flightData.postValue(Resource.error(response.errorBody()?.string()))
+
                 }
-                else
-                    _flightData.postValue(Resource.error(response.errorBody()?.string()))
 
-            }
+                override fun onFailure(call: Call<FlightResponseModel>, t: Throwable) {
+                    _flightData.postValue(Resource.error(t.message))
+                    println(t.localizedMessage)
+                }
 
-            override fun onFailure(call: Call<FlightResponseModel>, t: Throwable) {
-                _flightData.postValue(Resource.error(t.message))
-            }
-
-        })
+            })
     }
 
 

@@ -1,6 +1,7 @@
 package com.gorkemozgur.flightapp.model.flight
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Codeshared(
 
@@ -21,4 +22,4 @@ data class Codeshared(
 
     @SerializedName("flight_icao")
     val flightIcao: String
-)
+): Serializable

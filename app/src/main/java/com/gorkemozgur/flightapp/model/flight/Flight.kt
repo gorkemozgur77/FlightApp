@@ -1,6 +1,7 @@
 package com.gorkemozgur.flightapp.model.flight
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Flight(
 
@@ -23,8 +24,8 @@ data class Flight(
         val flightDetail: FlightDetail,
 
         @SerializedName("aircraft")
-        val aircraft: String,
+        val aircraft: Aircraft,
 
         @SerializedName("live")
-        val live: String
-)
+        val live: Live
+): Serializable

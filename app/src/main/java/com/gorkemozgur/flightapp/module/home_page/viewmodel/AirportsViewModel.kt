@@ -14,8 +14,8 @@ import retrofit2.Response
 
 class AirportsViewModel(application: Application) : BaseViewmodel(application) {
 
-    var offset = 0
-    var limit = 15
+    private var offset = 0
+    private var limit = 15
 
     private val _airportsData = MutableLiveData<Resource<List<Airport>>>()
     val airportsData: LiveData<Resource<List<Airport>>>

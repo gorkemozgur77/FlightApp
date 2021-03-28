@@ -19,6 +19,10 @@ import com.gorkemozgur.flightapp.util.FirebaseErrorCodes.WRONG_PASSWORD_CODE
 import com.gorkemozgur.flightapp.util.setErrorDisableListener
 import com.gorkemozgur.flightapp.util.toast
 import kotlinx.android.synthetic.main.fragment_login.*
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 
 class LoginFragment : BaseFragment() {
@@ -54,6 +58,7 @@ class LoginFragment : BaseFragment() {
 
         loginButton.setOnClickListener {
             signIn()
+
         }
 
         emailLoginId.setErrorDisableListener(emailLoginLayoutId)
@@ -67,7 +72,6 @@ class LoginFragment : BaseFragment() {
         if (emailLoginLayoutId.isErrorEnabled || passwordLoginLayoutId.isErrorEnabled)
             return
         viewModel.sendLoginRequest(emailLoginId.text.toString(), passwordLoginId.text.toString())
-        (activity as LoginActivity).showProgressBar()
     }
 
     private fun validateLayouts() {

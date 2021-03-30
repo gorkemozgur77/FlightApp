@@ -2,7 +2,6 @@ package com.gorkemozgur.flightapp.module.home_page.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,18 +9,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gorkemozgur.flightapp.R
 import com.gorkemozgur.flightapp.model.flight.Flight
 import com.gorkemozgur.flightapp.module.home_page.view.DetailActivity
-import com.gorkemozgur.flightapp.util.getDifferenceByHoursAndTime
+import com.gorkemozgur.flightapp.util.CustomTimeFunctions
 import kotlinx.android.synthetic.main.flights_recycler_row.view.*
-import java.text.SimpleDateFormat
-import java.util.*
 
-class FlightsRecyclerAdapter(val context: Context) : RecyclerView.Adapter<FlightsRecyclerAdapter.FlightsViewHolder>() {
+class FlightsRecyclerAdapter(val context: Context) :
+    RecyclerView.Adapter<FlightsRecyclerAdapter.FlightsViewHolder>() {
     class FlightsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     private var flightList: List<Flight> = listOf()
-    private val date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.getDefault())
-    private val dateFormat = SimpleDateFormat("kk:mm", Locale.getDefault())
-
+    private val customTimeFunctions = CustomTimeFunctions(context)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FlightsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -36,14 +32,14 @@ class FlightsRecyclerAdapter(val context: Context) : RecyclerView.Adapter<Flight
         holder.itemView.flightsDepartureAirportTextView.text = flightList[position].departure.iata
         holder.itemView.flightsArrivalAirportTextView.text = flightList[position].arrival.iata
         holder.itemView.flightsDepartureTimeTextView.text =
-            dateFormat.format(date.parse(flightList[position].departure.scheduled)!!)
+            customTimeFunctions.getDateByHourAndMinute(flightList[position].departure.scheduled)
         holder.itemView.flightsArrivalTimeTextView.text =
-            dateFormat.format(date.parse(flightList[position].arrival.scheduled)!!)
-        holder.itemView.flightsDurationTextView.text = getDifferenceByHoursAndTime(
-            date.parse(flightList[position].departure.scheduled)!!,
-            date.parse(flightList[position].arrival.scheduled)!!
-        )
-
+            customTimeFunctions.getDateByHourAndMinute(flightList[position].arrival.scheduled)
+        holder.itemView.flightsDurationTextView.text =
+            customTimeFunctions.getDifferenceByHoursAndTime(
+                flightList[position].departure.scheduled,
+                flightList[position].arrival.scheduled
+            )
         holder.itemView.flightsRecyclerRelativeLayout.setOnClickListener {
             val intent = Intent(context, DetailActivity::class.java)
             intent.putExtra("flight", flightList[position])

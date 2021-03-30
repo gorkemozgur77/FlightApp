@@ -17,4 +17,14 @@
     <string name="require_login_message">Değişiklik için tekrar giriş yapılması gerekiyor.</string>
     <string name="wrong_password">Hatalı şifre.</string>
     <string name="user_not_found">Kullanıcı bulunamadı.</string>
+    <string name="flight_duration_time">%1$ds %2$ddk</string>
+    <string name="flight">Uçuş Kodu: %1$s</string>
+    <string name="terminal">Terminal: %1$s</string>
+    <string name="gate">Kapı: %1$s</string>
+    <string name="seat">Koltuk: %1$s</string>
+    <string name="airports">Hava Alanları</string>
+    <string name="profile">Profil</string>
+    <string name="flights">Uçuşlar</string>
+
+
 </resources>

@@ -34,7 +34,7 @@
                     android:layout_alignTop="@+id/flightLinearRight"
                     android:text="Qantas"
                     android:textColor="@color/dark_blue"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <TextView

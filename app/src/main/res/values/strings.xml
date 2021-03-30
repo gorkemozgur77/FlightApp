@@ -17,4 +17,14 @@
     <string name="require_login_message">You need to re-login for changing your Email.</string>
     <string name="wrong_password">Wrong Password.</string>
     <string name="user_not_found">User not found.</string>
+    <string name="flight_duration_time">%1$dh %2$dm</string>
+    <string name="flight">Flight: %1$s</string>
+    <string name="terminal">Terminal: %1$s</string>
+    <string name="gate">Gate: %1$s</string>
+    <string name="seat">Seat: %1$s</string>
+    <string name="airports">Airports</string>
+    <string name="profile">Profile</string>
+    <string name="flights">Flights</string>
+
+
 </resources>

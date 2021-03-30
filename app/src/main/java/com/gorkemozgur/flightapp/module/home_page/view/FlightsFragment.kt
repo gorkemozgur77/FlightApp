@@ -1,7 +1,6 @@
 package com.gorkemozgur.flightapp.module.home_page.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,18 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gorkemozgur.flightapp.BaseFragment
 import com.gorkemozgur.flightapp.R
 import com.gorkemozgur.flightapp.model.Status
-import com.gorkemozgur.flightapp.model.flight.FlightResponseModel
 import com.gorkemozgur.flightapp.module.home_page.adapter.FlightsRecyclerAdapter
-import com.gorkemozgur.flightapp.module.home_page.viewmodel.AirportsViewModel
 import com.gorkemozgur.flightapp.module.home_page.viewmodel.FlightsViewModel
-import com.gorkemozgur.flightapp.service.ApiClient
-import com.gorkemozgur.flightapp.util.Constants
 import com.gorkemozgur.flightapp.util.toast
 import kotlinx.android.synthetic.main.activity_homepage.*
 import kotlinx.android.synthetic.main.fragment_flights.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class FlightsFragment : BaseFragment() {
 
@@ -30,8 +22,10 @@ class FlightsFragment : BaseFragment() {
     private lateinit var viewModel: FlightsViewModel
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_flights, container, false)
     }
@@ -41,7 +35,7 @@ class FlightsFragment : BaseFragment() {
         recyclerAdapter = context?.let { FlightsRecyclerAdapter(it) }!!
         viewModel = ViewModelProviders.of(this).get(FlightsViewModel::class.java)
 
-        flightListRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+        flightListRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
@@ -64,10 +58,10 @@ class FlightsFragment : BaseFragment() {
 
     }
 
-    private fun observeLiveData(){
+    private fun observeLiveData() {
         viewModel.flightData.observe(
             viewLifecycleOwner, {
-                when(it.status){
+                when (it.status) {
                     Status.LOADING -> showProgressBar()
                     Status.SUCCESS -> {
                         hideProgressBar()
@@ -80,6 +74,5 @@ class FlightsFragment : BaseFragment() {
                 }
             }
         )
-
     }
 }

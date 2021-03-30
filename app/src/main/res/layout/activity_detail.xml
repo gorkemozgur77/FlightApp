@@ -84,9 +84,15 @@
                         android:layout_marginTop="25dp"
                         android:text="BKK"
                         android:textColor="@color/white"
-
                         android:textSize="40sp"
                         android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="25dp"
+                        android:src="@drawable/ic_arrow_white" />
 
 
                     <TextView
@@ -103,8 +109,8 @@
                         android:id="@+id/detailDepartureTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
                         android:layout_alignStart="@+id/detailDepartureAirportIata"
+                        android:layout_alignParentBottom="true"
                         android:layout_marginBottom="35dp"
                         android:text="Wed, Mar 10 \n04:00"
                         android:textColor="@color/white" />
@@ -194,10 +200,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
                         android:layout_below="@+id/detailPageSeatNumber"
-                        android:layout_marginTop="25dp"
-                        android:layout_marginBottom="25dp"
                         android:layout_marginStart="40dp"
+                        android:layout_marginTop="25dp"
                         android:layout_marginEnd="40dp"
+                        android:layout_marginBottom="25dp"
                         android:background="@drawable/border" />
 
                 </RelativeLayout>

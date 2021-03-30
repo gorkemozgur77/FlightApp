@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="168dp"
-        android:layout_height="240dp"
-        app:cardCornerRadius="20dp"
-        android:layout_marginBottom="12dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="158dp"
+        android:layout_height="220dp"
         android:layout_centerInParent="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        app:cardCornerRadius="20dp"
         app:cardElevation="6dp">
 
         <RelativeLayout
@@ -24,69 +23,69 @@
                 android:id="@+id/airportCodeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="20sp"
+                android:text="AAA"
                 android:textColor="@color/dark_blue"
-                android:text="AAA"/>
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/airportNameTextView"
-                android:layout_below="@+id/airportCodeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/airportCodeTextView"
                 android:layout_marginTop="2dp"
-                android:textSize="15sp"
+                android:text="Anaa"
                 android:textColor="@color/dark_blue"
-                android:text="Anaa"/>
+                android:textSize="15sp" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/airportCountryTextView"
-                android:layout_below="@+id/airportNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/airportNameTextView"
                 android:layout_marginTop="15dp"
+                android:text="French Polynesia"
                 android:textColor="@color/dark_blue"
-                android:textSize="22sp"
-                android:text="French Polynesia"/>
+                android:textSize="22sp" />
 
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="2dp"
-                android:layout_marginBottom="10dp"
                 android:layout_above="@id/locatincallLinearLayout"
-                android:backgroundTint="@color/dark_blue"
-                android:background="@drawable/dotted_line"/>
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/dotted_line"
+                android:backgroundTint="@color/dark_blue" />
 
             <LinearLayout
                 android:id="@+id/locatincallLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_alignParentBottom="true">
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/googleLocationButton"
                     android:layout_width="0dp"
                     android:layout_height="36dp"
                     android:layout_weight="5"
-                    app:iconGravity="textStart"
-                    app:iconTint="@color/black"
+                    android:background="@android:color/transparent"
                     app:icon="@drawable/ic_baseline_location_on_36"
-                    android:background="@android:color/transparent"/>
+                    app:iconGravity="textStart"
+                    app:iconTint="@color/black" />
 
                 <View
                     android:layout_width="55dp"
-                    android:layout_height="0dp"/>
+                    android:layout_height="0dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/callButton"
                     android:layout_width="0dp"
                     android:layout_height="36dp"
                     android:layout_weight="5"
-                    app:iconGravity="textEnd"
-                    app:iconTint="@color/black"
+                    android:background="@android:color/transparent"
                     app:icon="@drawable/ic_baseline_call_36"
-                    android:background="@android:color/transparent"/>
+                    app:iconGravity="textEnd"
+                    app:iconTint="@color/black" />
             </LinearLayout>
         </RelativeLayout>
 

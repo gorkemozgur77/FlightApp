@@ -1,31 +1,48 @@
 package com.gorkemozgur.flightapp.model.flight
 
+import androidx.room.ColumnInfo
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
+@Entity
 data class Flight(
 
-        @SerializedName("flight_date")
-        val flightDate: String,
+  @PrimaryKey(autoGenerate = true)
+  @ColumnInfo(name = "id")
+  val id: Int,
 
-        @SerializedName("flight_status")
-        val flightStatus: String,
+  @ColumnInfo(name = "flight_date")
+  @SerializedName("flight_date")
+  val flightDate: String,
 
-        @SerializedName("departure")
-        val departure: Departure,
+  @ColumnInfo(name = "flight_status")
+  @SerializedName("flight_status")
+  val flightStatus: String,
 
-        @SerializedName("arrival")
-        val arrival: Arrival,
+  @Embedded(prefix = "departure_")
+  @SerializedName("departure")
+  val departure: Departure,
 
-        @SerializedName("airline")
-        val airline: Airline,
+  @Embedded(prefix = "arrival_")
+  @SerializedName("arrival")
+  val arrival: Arrival,
 
-        @SerializedName("flight")
-        val flightDetail: FlightDetail,
+  @Embedded(prefix = "airline_")
+  @SerializedName("airline")
+  val airline: Airline,
 
-        @SerializedName("aircraft")
-        val aircraft: Aircraft,
+  @Embedded(prefix = "flightDetail_")
+  @SerializedName("flight")
+  val flightDetail: FlightDetail,
 
-        @SerializedName("live")
-        val live: Live
-): Serializable
+  @Embedded
+  @SerializedName("aircraft")
+  val aircraft: Aircraft?,
+
+  @Embedded
+  @SerializedName("live")
+  val live: Live?
+) : Serializable

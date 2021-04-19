@@ -23,8 +23,10 @@ class AirportsFragment : BaseFragment() {
     private val recyclerAdapter = AirportsRecyclerAdapter()
     private lateinit var viewModel: AirportsViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_airports, container, false)
     }
 
@@ -47,7 +49,7 @@ class AirportsFragment : BaseFragment() {
             }
         })
 
-        viewModel.sendRequest()
+        viewModel.refreshData()
         airportListRecyclerView.layoutManager = GridLayoutManager(context, 2)
         airportListRecyclerView.adapter = recyclerAdapter
 
@@ -57,21 +59,21 @@ class AirportsFragment : BaseFragment() {
 
     private fun observeLiveData() {
         viewModel.airportsData.observe(
-                viewLifecycleOwner, Observer {
-            when (it.status) {
-                Status.LOADING -> {
-                    showProgressBar()
-                }
-                Status.SUCCESS -> {
-                    hideProgressBar()
-                    it.data?.let { it1 -> recyclerAdapter.updateAirportListItems(it1) }
-                }
-                Status.ERROR -> {
-                    hideProgressBar()
-                    toast("Sonra tekrar deneyin")
+            viewLifecycleOwner, Observer {
+                when (it.status) {
+                    Status.LOADING -> {
+                        showProgressBar()
+                    }
+                    Status.SUCCESS -> {
+                        hideProgressBar()
+                        it.data?.let { it1 -> recyclerAdapter.updateAirportListItems(it1) }
+                    }
+                    Status.ERROR -> {
+                        hideProgressBar()
+                        toast("Sonra tekrar deneyin")
+                    }
                 }
             }
-        }
         )
     }
 }

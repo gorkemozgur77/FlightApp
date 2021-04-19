@@ -1,5 +1,6 @@
 package com.gorkemozgur.flightapp.model.flight
 
+import androidx.room.Embedded
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -14,6 +15,7 @@ data class FlightDetail(
         @SerializedName("icao")
         val icao: String,
 
+        @Embedded
         @SerializedName("codeshared")
-        val codeshared: Codeshared
+        val codeshared: Codeshared?
 ): Serializable

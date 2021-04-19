@@ -2,21 +2,18 @@ package com.gorkemozgur.flightapp.module.home_page.viewmodel
 
 import android.app.Application
 import android.widget.TextView
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
 
-import com.gorkemozgur.flightapp.BaseViewmodel
-import com.gorkemozgur.flightapp.model.Resource
+import com.gorkemozgur.flightapp.BaseViewModel
 import com.gorkemozgur.flightapp.util.InputValidator
 import java.lang.Exception
 
 
-class ProfileViewModel(application: Application) : BaseViewmodel(application) {
+class ProfileViewModel(application: Application) : BaseViewModel(application) {
 
     private val mAuth = FirebaseAuth.getInstance()
     val user = MutableLiveData<FirebaseUser>()

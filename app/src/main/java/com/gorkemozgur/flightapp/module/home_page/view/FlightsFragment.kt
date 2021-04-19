@@ -52,7 +52,7 @@ class FlightsFragment : BaseFragment() {
 
         flightListRecyclerView.layoutManager = LinearLayoutManager(context)
         flightListRecyclerView.adapter = recyclerAdapter
-        viewModel.sendRequest()
+        viewModel.getFromDatabase()
 
         observeLiveData()
 

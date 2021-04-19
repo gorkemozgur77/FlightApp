@@ -8,11 +8,11 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.UserProfileChangeRequest
-import com.gorkemozgur.flightapp.BaseViewmodel
+import com.gorkemozgur.flightapp.BaseViewModel
 import com.gorkemozgur.flightapp.model.Resource
 import com.gorkemozgur.flightapp.util.InputValidator
 
-class RegisterViewModel(application: Application): BaseViewmodel(application) {
+class RegisterViewModel(application: Application): BaseViewModel(application) {
 
     private val mAuth = FirebaseAuth.getInstance()
 

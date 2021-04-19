@@ -27,23 +27,26 @@ class FlightsRecyclerAdapter(val context: Context) :
 
     override fun onBindViewHolder(holder: FlightsViewHolder, position: Int) {
 
-        holder.itemView.flighstAirlineTextView.text = flightList[position].airline.name
-        holder.itemView.flightsCodeTextview.text = flightList[position].flightDetail.iata
-        holder.itemView.flightsDepartureAirportTextView.text = flightList[position].departure.iata
-        holder.itemView.flightsArrivalAirportTextView.text = flightList[position].arrival.iata
-        holder.itemView.flightsDepartureTimeTextView.text =
-            customTimeFunctions.getDateByHourAndMinute(flightList[position].departure.scheduled)
-        holder.itemView.flightsArrivalTimeTextView.text =
-            customTimeFunctions.getDateByHourAndMinute(flightList[position].arrival.scheduled)
-        holder.itemView.flightsDurationTextView.text =
-            customTimeFunctions.getDifferenceByHoursAndTime(
-                flightList[position].departure.scheduled,
-                flightList[position].arrival.scheduled
-            )
-        holder.itemView.flightsRecyclerRelativeLayout.setOnClickListener {
-            val intent = Intent(context, DetailActivity::class.java)
-            intent.putExtra("flight", flightList[position])
-            context.startActivity(intent)
+        val flight = flightList[position]
+        holder.itemView.apply {
+            flighstAirlineTextView.text = flight.airline.name
+            flightsCodeTextview.text = flight.flightDetail.iata
+            flightsDepartureAirportTextView.text = flight.departure.iata
+            flightsArrivalAirportTextView.text = flight.arrival.iata
+            flightsDepartureTimeTextView.text =
+                customTimeFunctions.getDateByHourAndMinute(flight.departure.scheduled)
+            flightsArrivalTimeTextView.text =
+                customTimeFunctions.getDateByHourAndMinute(flight.arrival.scheduled)
+            flightsDurationTextView.text =
+                customTimeFunctions.getDifferenceByHoursAndTime(
+                    flight.departure.scheduled,
+                    flight.arrival.scheduled
+                )
+            flightsRecyclerRelativeLayout.setOnClickListener {
+                val intent = Intent(context, DetailActivity::class.java)
+                intent.putExtra("flight", flight)
+                context.startActivity(intent)
+            }
         }
     }
 

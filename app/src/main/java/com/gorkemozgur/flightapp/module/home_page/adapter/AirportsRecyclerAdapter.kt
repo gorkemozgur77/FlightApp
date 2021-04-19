@@ -17,29 +17,33 @@ class AirportsRecyclerAdapter : RecyclerView.Adapter<AirportsRecyclerAdapter.Air
     private var airportList: List<Airport> = listOf()
     lateinit var context: Context
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AirportViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.airports_recycler_row, parent, false)
-
         context = parent.context
 
         return AirportViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: AirportViewHolder, position: Int) {
-        holder.itemView.airportCodeTextView.text = airportList[position].iata_code
-        holder.itemView.airportCountryTextView.text = airportList[position].country_name
-        holder.itemView.airportNameTextView.text = airportList[position].airport_name
-
-        holder.itemView.googleLocationButton.setOnClickListener {
-            val map = "http://maps.google.com/maps?q=loc:${airportList[position].latitude},${airportList[position].longitude} (${airportList[position].airport_name})"
-            // "http://maps.google.com/maps?q=loc:" + latitude + "," + longitude + " (" + yourLocationName + ")"
-            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(map)))
-        }
-
-        holder.itemView.callButton.setOnClickListener {
-            context.startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "+16088441086")))
+        val airport = airportList[position]
+        holder.itemView.apply {
+            airportCodeTextView.text = airport.iata_code
+            airportCountryTextView.text = airport.country_name
+            airportNameTextView.text = airport.airport_name
+            googleLocationButton.setOnClickListener {
+                val map =
+                    "http://maps.google.com/maps?q=loc:${airport.latitude},${airport.longitude} (${airport.airport_name})"
+                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(map)))
+            }
+            callButton.setOnClickListener {
+                context.startActivity(
+                    Intent(
+                        Intent.ACTION_DIAL,
+                        Uri.parse("tel:" + "+16088441086")
+                    )
+                )
+            }
         }
     }
 

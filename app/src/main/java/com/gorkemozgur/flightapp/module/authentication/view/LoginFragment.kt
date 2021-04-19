@@ -19,10 +19,6 @@ import com.gorkemozgur.flightapp.util.FirebaseErrorCodes.WRONG_PASSWORD_CODE
 import com.gorkemozgur.flightapp.util.setErrorDisableListener
 import com.gorkemozgur.flightapp.util.toast
 import kotlinx.android.synthetic.main.fragment_login.*
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.*
 
 
 class LoginFragment : BaseFragment() {
@@ -32,8 +28,8 @@ class LoginFragment : BaseFragment() {
 
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
@@ -41,14 +37,16 @@ class LoginFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+
         mAuth = FirebaseAuth.getInstance()
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
 
         airbus.startAnimation(
-                AnimationUtils.loadAnimation(
-                        context,
-                        R.anim.up_down
-                )
+            AnimationUtils.loadAnimation(
+                context,
+                R.anim.up_down
+            )
         )
 
         registerPageButton.setOnClickListener {
@@ -58,6 +56,17 @@ class LoginFragment : BaseFragment() {
 
         loginButton.setOnClickListener {
             signIn()
+
+            //e7WnRQUDSWePUemsclsPG8:APA91bFi7jiPi92LtXVYvWjSF4meb2WS0PkvvEVYNGqaUKhqsgeEdsHlqtaSJjazYaaYNosO2F7U4QkZuEa3Tu8IbUU8KJ4Jbz3t3nI5BBhmCwba2dVvumcnXsBtbKv1zcVCmiZhau2W
+
+//            PushNotification(
+//                NotificationData("Etoya", "DENEME"),
+//                "fuDijt00TE2DPfhjo3ySwD:APA91bE-mT6nSz8EEjjBpiYoBSmmdFzBugZ2IIEvJ3r9ghfYhttsxCu5oR0t0fqHcqbxhkyVQh0_D_wAsr_9IF4DTgxMNadR5_POoTCunsARPGgVghO4FZm4gfpvTCoe-YTLsQit3K7M"
+//
+//            ).also {
+//                sendNotification(it)
+//            }
+
 
         }
 
@@ -81,25 +90,40 @@ class LoginFragment : BaseFragment() {
 
     private fun observeLiveData() {
         viewModel.responseValue.observe(
-                viewLifecycleOwner, {
+            viewLifecycleOwner, {
 
-            when (it.status) {
-                Status.LOADING -> {
-                    showProgressBar()
-                }
-                Status.SUCCESS -> {
-                    startActivity(Intent(context, Homepage::class.java))
-                    this.activity?.finish()
-                }
-                Status.ERROR -> {
-                    hideProgressBar()
-                    when (it.message) {
-                        WRONG_PASSWORD_CODE -> toast(getString(R.string.wrong_password))
-                        USER_NOT_FOUND_CODE -> toast(getString(R.string.user_not_found))
+                when (it.status) {
+                    Status.LOADING -> {
+                        showProgressBar()
+                    }
+                    Status.SUCCESS -> {
+                        startActivity(Intent(context, Homepage::class.java))
+                        (activity as LoginActivity).finish()
+                    }
+                    Status.ERROR -> {
+                        hideProgressBar()
+                        when (it.message) {
+                            WRONG_PASSWORD_CODE -> toast(getString(R.string.wrong_password))
+                            USER_NOT_FOUND_CODE -> toast(getString(R.string.user_not_found))
+                        }
                     }
                 }
             }
-        }
         )
     }
+
+//    private fun sendNotification(notification: PushNotification) =
+//        CoroutineScope(Dispatchers.IO).launch {
+//            try {
+//                val response =
+//                    ApiClient().getNotificationApiService().postNotification(notification)
+//            if(response.isSuccessful) {
+//             Log.d(TAG, "Response: ${Gson().toJson(response)}")
+//           } else {
+//               Log.e(TAG, response.errorBody().toString())
+//           }
+//            } catch (e: Exception) {
+//                Log.e(TAG, e.toString())
+//            }
+//        }
 }

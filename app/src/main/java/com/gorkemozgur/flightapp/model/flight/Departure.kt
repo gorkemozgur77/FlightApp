@@ -14,13 +14,13 @@ data class Departure(
         val iata: String,
 
         @SerializedName("terminal")
-        val terminal: String,
+        val terminal: String?,
 
         @SerializedName("gate")
-        val gate: String,
+        val gate: String?,
 
         @SerializedName("delay")
-        val delay: String,
+        val delay: String?,
 
         @SerializedName("scheduled")
         val scheduled: String,
@@ -29,11 +29,11 @@ data class Departure(
         val estimated: String,
 
         @SerializedName("actual")
-        val actual: String,
+        val actual: String?,
 
         @SerializedName("estimated_runway")
-        val estimatedRunway: String,
+        val estimatedRunway: String?,
 
         @SerializedName("actual_runway")
-        val actualRunway: String
+        val actualRunway: String?
 ): Serializable
